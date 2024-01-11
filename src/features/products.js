@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createCartItem } from "./cart";
+import { removeFromCart } from "./cart";
 
 const initialState = {
     items: undefined
@@ -17,6 +18,10 @@ export const products = createSlice({
         builder
         .addCase(createCartItem, (state, action)=> {
             state.items.find(item => item.id === action.payload.id).picked =true
+        }),
+        builder
+        .addCase(removeFromCart, (state, action)=> {
+            state.items.find(item => item.id === action.payload).picked =false
         })
     }
 })

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsList } from "../features/products";
 import React from "react";
-import { addOneToCart } from "../features/cart";
+import { addOneToCart, removeFromCart } from "../features/cart";
 
 export default function ProductsList() {
   const dispatch = useDispatch();
@@ -28,7 +28,10 @@ export default function ProductsList() {
                 <p className="text-slate-900 font-bold">{item.price}</p>
               </div>
               <button
-                onClick={() => dispatch(addOneToCart(item.id))}
+                onClick={() => {
+                  if (!item.picked) dispatch(addOneToCart(item.id));
+                  else dispatch(removeFromCart(item.id));
+                }}
                 className={`${
                   item.picked ? "bg-green-700" : "bg-slate-600"
                 } w-full py-2 text-slate-200 inline-flex items-center justify-center rounded`}

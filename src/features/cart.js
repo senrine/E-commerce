@@ -11,6 +11,17 @@ export const cart = createSlice({
     createCartItem: (state, action) => {
       state.cartItems.push(action.payload);
     },
+    updateItemFromSelect: (state, action) => {
+      state.cartItems.find(
+        (cartItem) => cartItem.id === action.payload.id
+      ).quantity = Number(action.payload.value);
+    },
+    removeFromCart: (state, action) => {
+      const indexOfItem = state.cartItems.findIndex(
+        (cartItem) => cartItem.id === action.payload
+      );
+      state.cartItems.splice(indexOfItem, 1);
+    },
   },
 });
 
@@ -36,5 +47,6 @@ export function addOneToCart(action) {
   };
 }
 
-export const { createCartItem } = cart.actions;
+export const { createCartItem, updateItemFromSelect, removeFromCart } =
+  cart.actions;
 export default cart.reducer;
